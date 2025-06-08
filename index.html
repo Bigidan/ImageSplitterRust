@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/src/styles.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tauri App</title>
+    <script type="module" src="/src/main.ts" defer></script>
+  </head>
+<body>
+    <div class="app-container">
+        <!-- Header with controls -->
+        <header class="app-header">
+            <h1>ImageSplitter version Rust</h1>
+            <div class="controls">
+                <button id="load-btn" class="btn primary">Завантажити Raw</button>
+                <button id="export-btn" class="btn secondary">Експортувати</button>
+                <div class="separator-controls">
+                    <input type="number" id="auto-separator-input" placeholder="Висота (4000-14000)" min="4000" max="14000" value="9000">
+                    <button id="auto-separator-btn" class="btn">Авто-розділення</button>
+                    <button id="clear-separators-btn" class="btn danger">Очистити</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main content area -->
+        <main class="main-content">
+            <!-- Mini navigation (left) -->
+            <div class="mini-navigation" id="mini-nav">
+                <div class="viewport-indicator" id="mini-viewport"></div>
+            </div>
+
+            <!-- Main image viewer -->
+            <div class="image-viewer" id="image-viewer">
+                <div class="canvas-container" id="canvas-container"></div>
+            </div>
+
+            <!-- Separators panel (right) -->
+            <div class="separators-panel">
+                <div class="separators-header">
+                    <h3>Розділювачі</h3>
+                    <div class="separators-info" id="separators-info">Розділювачів: 0 | Сторінок: 0</div>
+                </div>
+                <div class="separators-table-container">
+                    <table class="separators-table" id="separators-table">
+                        <thead>
+                            <tr>
+                                <th>Висота</th>
+                                <th>Відрізок</th>
+                                <th>Дія</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <!-- Status bar -->
+        <footer class="status-bar">
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar">
+                    <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                </div>
+                <span class="progress-text" id="progress-text">0%</span>
+            </div>
+            <div class="status-message" id="status-message">Готово</div>
+        </footer>
+
+        <!-- Modals -->
+        <div class="modal" id="error-modal">
+            <div class="modal-content">
+                <h3>Помилка</h3>
+                <p id="error-message"></p>
+                <button class="btn modal-close" id="close-error-modal">Закрити</button>
+            </div>
+        </div>
+
+        <div class="modal" id="folder-modal">
+            <div class="modal-content">
+                <h3>Виберіть папку з Raw зображеннями</h3>
+                <input type="text" id="folder-path" placeholder="Шлях до папки (напр. C:/Manga/Chapter-1/)">
+                <div class="modal-actions">
+                    <button class="btn secondary" id="cancel-folder">Скасувати</button>
+                    <button class="btn primary" id="confirm-folder">Підтвердити</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js" type="module"></script>
+</body>
+</html>
