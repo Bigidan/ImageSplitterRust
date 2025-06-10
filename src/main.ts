@@ -658,7 +658,7 @@ class WebtoonProcessor {
         });
     }
 
-    private exportImages(): void {
+    private async exportImages(): Promise<void> {
         if (this.separators.length === 0) {
             this.showErrorModal("Немає розділювачів для експорту");
             return;
@@ -669,25 +669,19 @@ class WebtoonProcessor {
             return;
         }
 
-        // In a real app, this would use Tauri's filesystem API
-        // For now, we'll just show a success message
         this.updateProgress(0, "Експорт зображень...");
         
-        setTimeout(() => {
-            let progress = 0;
-            const interval = setInterval(() => {
-                progress += 5;
-                this.updateProgress(progress, `Експорт... ${progress}%`);
-                
-                if (progress >= 100) {
-                    clearInterval(interval);
-                    this.updateProgress(100, "Експорт завершено");
-                    setTimeout(() => {
-                        this.updateProgress(0, "Готово");
-                    }, 2000);
-                }
-            }, 100);
-        }, 500);
+        let separator_positions: number[] = this.separators.map((separator) => {
+            return separator.position;
+        });
+
+        console.log(separator_positions);
+        
+
+        await invoke("export_images", {
+            separators: separator_positions,
+            extention: "webp",
+        });
     }
 }
 
