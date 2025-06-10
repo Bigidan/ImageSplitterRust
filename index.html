@@ -2,6 +2,7 @@
 <html lang="uk">
   <head>
     <meta charset="UTF-8" />
+    <meta name="color-scheme" content="dark">
     <link rel="stylesheet" href="/src/styles.css" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -30,17 +31,17 @@
 
         <!-- Main content area -->
         <main class="main-content">
-            <!-- Mini navigation (left) -->
-            <div class="mini-navigation" id="mini-nav">
-                <div class="viewport-indicator" id="mini-viewport"></div>
-            </div>
-
             <!-- Main image viewer -->
             <div class="image-viewer" id="image-viewer">
                 <div class="canvas-container" id="canvas-container"></div>
             </div>
 
-            <!-- Separators panel (right) -->
+            <!-- Mini navigation (right) -->
+            <div class="mini-navigation" id="mini-nav">
+                <div class="viewport-indicator" id="mini-viewport"></div>
+            </div>
+
+            <!-- Separators panel (rightest) -->
             <div class="separators-panel">
                 <div class="separators-header">
                     <h3>Розділювачі</h3>
@@ -80,19 +81,6 @@
                 <button class="btn modal-close" id="close-error-modal">Закрити</button>
             </div>
         </div>
-
-        <div class="modal" id="folder-modal">
-            <div class="modal-content">
-                <h3>Виберіть папку з Raw зображеннями</h3>
-                <input type="text" id="folder-path" placeholder="Шлях до папки (напр. C:/Manga/Chapter-1/)">
-                <div class="modal-actions">
-                    <button class="btn secondary" id="cancel-folder">Скасувати</button>
-                    <button class="btn primary" id="confirm-folder">Підтвердити</button>
-                </div>
-            </div>
-        </div>
     </div>
-
-    <script src="app.js" type="module"></script>
 </body>
 </html>
