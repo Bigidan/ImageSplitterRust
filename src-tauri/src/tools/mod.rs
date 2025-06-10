@@ -1,2 +1,1 @@
-pub mod file_manager;
 pub mod image_process;
