@@ -7,11 +7,11 @@ use serde::{
     Serialize
 };
 use image::{
+    ImageFormat,
+    ImageBuffer,
     DynamicImage,
     GenericImage,
     GenericImageView,
-    ImageBuffer,
-    ImageFormat,
 };
 
 use natord::compare;
@@ -320,7 +320,8 @@ impl ImageProcessor {
         &self.image_data
     }
 
-    pub fn export_slices(&self, separators: &[u32], output_path: &str) -> Result<(), String> {
+
+    pub fn export_slices(&self, separators: &[u32], file_extantion: &str) -> Result<(), String> {
         let big_image = self.big_image.as_ref().ok_or("Немає великого зображення")?;
         let (width, height) = big_image.dimensions();
 
@@ -334,7 +335,7 @@ impl ImageProcessor {
         for &separator in separators {
             let end_y = separator.min(height);
             let part = big_image.crop_imm(0, start_y, width, end_y - start_y);
-            let output_file = split_path.join(format!("{}.{}", index, output_path));
+            let output_file = split_path.join(format!("{}.{}", index, file_extantion));
             part.save(&output_file)
                 .map_err(|e| format!("Помилка зберігання частини {}.{}", index, e))?;
 
@@ -344,7 +345,7 @@ impl ImageProcessor {
 
         if start_y < height {
             let part = big_image.crop_imm(0, start_y, width, height - start_y);
-            let output_file = split_path.join(format!("{}.{}", index, output_path));
+            let output_file = split_path.join(format!("{}.{}", index, file_extantion));
             part.save(&output_file)
                 .map_err(|e| format!("Помилка зберігання частини {}.{}", index, e))?;
         }

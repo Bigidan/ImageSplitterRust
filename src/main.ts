@@ -107,6 +107,9 @@ class WebtoonProcessor {
                 const newPosition = this.separatorStartPos + deltaY;
 
                 if (newPosition >= 0 && newPosition <= this.totalHeight) {
+                    console.log(this.separatorStartPos);
+                    console.log(newPosition);
+                    
                     this.draggedSeparator.position = newPosition;
                     this.updateSeparatorElement(this.draggedSeparator);
                 }
@@ -543,7 +546,7 @@ class WebtoonProcessor {
             this.isDraggingSeparator = true;
             this.draggedSeparator = separator;
             this.dragStartY = e.clientY;
-            this.separatorStartPos = position;
+            this.separatorStartPos = separator.position;
             e.preventDefault();
         });
 
@@ -558,6 +561,9 @@ class WebtoonProcessor {
     private updateSeparatorElement(separator: Separator): void {
         separator.element.style.top = `${separator.position}px`;
         separator.label.textContent = `${separator.position}px`;
+        const foundIndex = this.separators.findIndex(s => separator.element === s.element);
+        console.log(this.separators[foundIndex]);
+        this.separators[foundIndex] = separator;
     }
 
     private removeSeparator(position: number): void {
@@ -639,6 +645,7 @@ class WebtoonProcessor {
 
     private updateSeparatorsInfo(): void {
         const infoElement = document.getElementById('separators-info');
+        
         if (infoElement) {
             infoElement.textContent = `Розділювачів: ${this.separators.length} | Сторінок: ${this.separators.length + 1}`;
         }
